@@ -5,6 +5,8 @@ var barrage = new Barrage($('.barrage-area'), {
 	dx: 20
 });
 
+barrage.start();
+
 $('#start-btn').click(function(){
 	barrage.start();
 })
@@ -12,3 +14,9 @@ $('#start-btn').click(function(){
 $('#stop-btn').click(function(){
 	barrage.stop();
 })
+
+new Barrage($('.container2'),{
+	numlines: 1,
+	velocities: [-5],
+	x0: $(window).width()
+}).start();

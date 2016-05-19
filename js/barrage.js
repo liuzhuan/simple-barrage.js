@@ -126,7 +126,7 @@ Barrage.prototype.render = function(){
 		item.tick();
 	})
 
-	if (this.deadAtoms.length > 4) {
+	if (this.deadAtoms.length > 0) {
 		this.layout(this.deadAtoms, this.lastLineIdx);
 		this.deadAtoms.length = 0;
 	}
