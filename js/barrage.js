@@ -15,13 +15,10 @@ function Barrage($container, options) {
 	
 	this.deadAtoms = [];
 	this.atoms = [];
+	this.tid;
 
 	var _deadAtoms = this.deadAtoms;
 	var _theAtoms = this.atoms
-
-	$atoms.each(function(idx){
-		_theAtoms.push(new Atom($(this), 0, 0, -1));
-	})
 
 	function Atom($el, x, y, vx) {
 		this.$el = $el;
@@ -44,6 +41,10 @@ function Barrage($container, options) {
 			_deadAtoms.push(this);
 		}
 
+		this.render();
+	}
+
+	Atom.prototype.render = function(){
 		this.$el.css({
 			transform: "translate3d(" + this.x + "px, "+ this.y + "px, 0px)"
 		});
@@ -54,12 +55,29 @@ function Barrage($container, options) {
 		this.y = newY;
 		this.vx = vx;
 		this.dead = false;
+
+		this.render();
 	}
+
+	$atoms.each(function(idx){
+		_theAtoms.push(new Atom($(this), 0, 0, -1));
+	})
+
+	this.reset();
 }
 
 Barrage.prototype.start = function(){
+	this.reset();
 	this.layout(this.atoms, 0);
 	this.render();
+}
+
+Barrage.prototype.reset = function(){
+	var x0 = this.x0;
+	var y0 = this.y0;
+	this.atoms.forEach(function(item){
+		item.reset(x0, y0, 0);
+	})
 }
 
 Barrage.prototype.layout = function(layoutAtoms, firstLineIndex){
@@ -110,7 +128,11 @@ Barrage.prototype.render = function(){
 	}
 
 	var _this = this;
-	requestAnimationFrame(function(){ _this.render(); })
+	this.tid = requestAnimationFrame(function(){ _this.render(); })
+}
+
+Barrage.prototype.stop = function(){
+	cancelAnimationFrame(this.tid);
 }
 
 function r(min, max) {

@@ -4,4 +4,11 @@ var barrage = new Barrage($('.barrage-area'), {
 	x0: $(window).width(),
 	dx: 20
 });
-barrage.start();
+
+$('#start-btn').click(function(){
+	barrage.start();
+})
+
+$('#stop-btn').click(function(){
+	barrage.stop();
+})
