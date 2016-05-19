@@ -16,6 +16,7 @@ function Barrage($container, options) {
 	this.deadAtoms = [];
 	this.atoms = [];
 	this.tid;
+	this.running = false;
 
 	var _deadAtoms = this.deadAtoms;
 	var _theAtoms = this.atoms
@@ -67,9 +68,12 @@ function Barrage($container, options) {
 }
 
 Barrage.prototype.start = function(){
+	if (this.running) return;
+
 	this.reset();
 	this.layout(this.atoms, 0);
 	this.render();
+	this.running = true;
 }
 
 Barrage.prototype.reset = function(){
@@ -132,7 +136,10 @@ Barrage.prototype.render = function(){
 }
 
 Barrage.prototype.stop = function(){
-	cancelAnimationFrame(this.tid);
+	if (this.running == true) {
+		cancelAnimationFrame(this.tid);
+		this.running = false;
+	}
 }
 
 function r(min, max) {
