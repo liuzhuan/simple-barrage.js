@@ -19,3 +19,5 @@ var barrage = new Barrage($('.barrage-area'), {
 });
 barrage.start();
 ```
+
+You can check out this [demo](http://liuzhuan.github.io/demos/simple-barrage-effect/index.html).
